@@ -28,6 +28,7 @@ export type Database = {
           descripcion?: string | null
           created_at?: string
         }
+        Relationships: []
       }
       clientes: {
         Row: {
@@ -60,6 +61,7 @@ export type Database = {
           notas?: string | null
           created_at?: string
         }
+        Relationships: []
       }
       trabajos: {
         Row: {
@@ -98,6 +100,15 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'trabajos_cliente_id_fkey'
+            columns: ['cliente_id']
+            isOneToOne: false
+            referencedRelation: 'clientes'
+            referencedColumns: ['id']
+          },
+        ]
       }
       trabajo_estado_historial: {
         Row: {
@@ -127,6 +138,15 @@ export type Database = {
           usuario_id?: string | null
           created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'trabajo_estado_historial_trabajo_id_fkey'
+            columns: ['trabajo_id']
+            isOneToOne: false
+            referencedRelation: 'trabajos'
+            referencedColumns: ['id']
+          },
+        ]
       }
       cheques: {
         Row: {
@@ -180,6 +200,22 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'cheques_cliente_id_fkey'
+            columns: ['cliente_id']
+            isOneToOne: false
+            referencedRelation: 'clientes'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'cheques_movimiento_caja_id_fkey'
+            columns: ['movimiento_caja_id']
+            isOneToOne: false
+            referencedRelation: 'movimientos_caja'
+            referencedColumns: ['id']
+          },
+        ]
       }
       movimientos_caja: {
         Row: {
@@ -233,6 +269,36 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'movimientos_caja_cliente_id_fkey'
+            columns: ['cliente_id']
+            isOneToOne: false
+            referencedRelation: 'clientes'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'movimientos_caja_trabajo_id_fkey'
+            columns: ['trabajo_id']
+            isOneToOne: false
+            referencedRelation: 'trabajos'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'movimientos_caja_categoria_id_fkey'
+            columns: ['categoria_id']
+            isOneToOne: false
+            referencedRelation: 'categorias_egreso'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'movimientos_caja_cheque_id_fkey'
+            columns: ['cheque_id']
+            isOneToOne: false
+            referencedRelation: 'cheques'
+            referencedColumns: ['id']
+          },
+        ]
       }
       arqueos: {
         Row: {
@@ -277,6 +343,7 @@ export type Database = {
           usuario_id?: string | null
           created_at?: string
         }
+        Relationships: []
       }
       configuracion: {
         Row: {
@@ -300,6 +367,7 @@ export type Database = {
           descripcion?: string | null
           updated_at?: string
         }
+        Relationships: []
       }
       usuarios_app: {
         Row: {
@@ -323,6 +391,7 @@ export type Database = {
           activo?: boolean
           created_at?: string
         }
+        Relationships: []
       }
     }
     Views: { [_ in never]: never }
