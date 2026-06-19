@@ -2,6 +2,13 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function updateSession(request: NextRequest) {
+  // ⚠️ TEMPORAL: autenticación deshabilitada para poder revisar la app sin login.
+  // TODO: REVERTIR antes de producción — poner AUTH_DISABLED = false para reactivar el guard.
+  const AUTH_DISABLED: boolean = true
+  if (AUTH_DISABLED) {
+    return NextResponse.next({ request })
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
